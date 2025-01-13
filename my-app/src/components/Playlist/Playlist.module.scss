@@ -1,0 +1,22 @@
+.playlist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.playlist-item {
+    cursor: pointer;
+    text-align: center;
+    width: 150px;
+}
+
+.playlist-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.playlist-item p {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
