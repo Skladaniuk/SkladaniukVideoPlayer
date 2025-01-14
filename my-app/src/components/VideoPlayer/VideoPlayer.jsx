@@ -8,6 +8,8 @@ export const VideoJS = () => {
     const playerRef = useRef(null);
     const playerStore = usePlayerStore();
     const webcamStreamRef = useRef(null);
+    const mediaRecorderRef = useRef(null);
+    const recordedChunksRef = useRef([]);
 
     useEffect(() => {
         if (!playerRef.current) {
@@ -25,12 +27,12 @@ export const VideoJS = () => {
                     : [playerStore.videoSources[playerStore.currentSource]],
             }));
 
-            // Подія завершення відео
             player.on('ended', () => {
                 if (playerStore.currentSource !== -1) {
                     playerStore.setSource((playerStore.currentSource + 1) % playerStore.videoSources.length);
                 }
             });
+
         } else {
             const player = playerRef.current;
             player.autoplay(playerStore.autoplay);
@@ -88,12 +90,66 @@ export const VideoJS = () => {
         }
     };
 
+    const startRecording = () => {
+        if (webcamStreamRef.current && !mediaRecorderRef.current) {
+            mediaRecorderRef.current = new MediaRecorder(webcamStreamRef.current);
+            mediaRecorderRef.current.ondataavailable = (event) => {
+                if (event.data.size > 0) {
+                    console.log('AAAAAAAAAAAAAAa', event.data.size)
+                    recordedChunksRef.current.push(event.data);
+                    console.log('----------', recordedChunksRef.current.length);
+                }
+            };
+            mediaRecorderRef.current.start();
+        }
+    };
+
+    const stopRecording = async () => {
+        if (mediaRecorderRef.current) {
+            mediaRecorderRef.current.stop();
+
+            // Очікування завершення запису
+            await new Promise(resolve => {
+                mediaRecorderRef.current.onstop = resolve;
+            });
+
+            mediaRecorderRef.current = null;
+
+            if (recordedChunksRef.current.length > 0) {
+                const blob = new Blob(recordedChunksRef.current, { type: 'video/mp4' });
+                recordedChunksRef.current = []; // Очистка записаних даних після запису
+
+                if (blob.size > 0) {
+                    const url = URL.createObjectURL(blob);
+                    const downloadButton = document.createElement('button');
+                    downloadButton.innerText = 'Завантажити';
+                    downloadButton.onclick = () => {
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = `video-${new Date().toISOString()}.mp4`;
+                        a.click();
+                        URL.revokeObjectURL(url);
+                    };
+
+                    document.body.appendChild(downloadButton);
+                }
+            }
+        }
+    };
+
+
     return (
         <div data-vjs-player>
             <div ref={videoRef}></div>
             <button onClick={toggleCamera}>
                 {playerStore.currentSource === -1 ? 'Показати відео' : 'Увімкнути камеру'}
             </button>
+            {playerStore.currentSource === -1 && (
+                <>
+                    <button onClick={startRecording}>Записати відео</button>
+                    <button onClick={stopRecording}>Зупинити запис</button>
+                </>
+            )}
         </div>
     );
 };
