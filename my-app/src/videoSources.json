@@ -1,0 +1,17 @@
+[
+    {
+        "src": "/assets/videos/mov_bbb.mp4",
+        "type": "video/mp4",
+        "poster": "/assets/images/poster1.png"
+    },
+    {
+        "src": "/assets/videos/movie.mp4",
+        "type": "video/mp4",
+        "poster": "/assets/images/poster2.png"
+    },
+    {
+        "src": "/assets/videos/sample-mp4-file.mp4",
+        "type": "video/mp4",
+        "poster": "/assets/images/poster3.png"
+    }
+]

@@ -7,7 +7,8 @@ function App() {
 
   const playerRef = React.useRef(null);
 
-  
+ 
+
   const handlePlayerReady = (player) => {
     playerRef.current = player;
 
@@ -24,7 +25,7 @@ function App() {
     <>
       <VideoJS onReady={handlePlayerReady} />
       <Playlist />
-
+      
     </>
   );
 }

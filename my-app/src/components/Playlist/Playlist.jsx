@@ -27,6 +27,7 @@ const Playlist = () => {
                 videoElement.removeEventListener('ended', nextVideo);
             }
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex]);
 
     return (
