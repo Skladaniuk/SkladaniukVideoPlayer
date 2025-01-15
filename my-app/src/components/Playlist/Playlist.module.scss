@@ -1,22 +1,68 @@
 .playlist {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+    flex-direction: column;
+    background-color: #19191C;
+    width: 320px; // Збільшена ширина контейнера
+    margin-left: 20px;
+    border-radius: 0 0 6px 6px;
 }
 
-.playlist-item {
+.videoList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.playlistItem {
     cursor: pointer;
-    text-align: center;
-    width: 150px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.5s linear;
+    position: relative;
+
+    &:hover {
+        background-color: #242428;
+    }
+
+    &.active {
+        background-color: #2C2C34;
+    }
 }
 
-.playlist-item img {
+.posterWrapper {
+    position: relative;
+    width: 90px; // Збільшена ширина постера
+    height: 60px; // Прямокутна висота постера
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+.poster {
     width: 100%;
-    height: auto;
-    border-radius: 8px;
+    height: 100%;
+    border-radius: 4px;
+    object-fit: cover; // Забезпечує масштабування з урахуванням пропорцій
 }
 
-.playlist-item p {
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
+.playIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 50%;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.videoName {
+    font-size: 14px;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+

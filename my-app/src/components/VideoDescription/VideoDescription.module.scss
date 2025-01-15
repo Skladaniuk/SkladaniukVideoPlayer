@@ -1,0 +1,39 @@
+.description {
+    padding-bottom: 69px;
+}
+
+.descriptionTitle {
+    font-size: 14px;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 131px;
+        background-color: #E11D48;
+        height: 2px;
+        z-index: 22;
+    }
+}
+
+.descriptionText {
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    margin-top: 40px;
+}
+
+.titleContainer {
+    padding: 12px 32px;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #29292E;
+        height: 1px;
+    }
+}

@@ -1,6 +1,54 @@
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+body {
+  background-color: #121214;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+}
+
 .App {
   text-align: center;
 }
+
+a {
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  color: inherit;
+}
+
+li,
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ol {
+  padding: 0;
+  margin: 0;
+}
+
+p,
+h1,
+h2,
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
 
 .App-logo {
   height: 40vmin;
@@ -32,7 +80,19 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.toggleColorScheme{
+  position: absolute;
+  top: -50px;
+  left: 80px;
+ z-index: 600;
+}
+
+.toggleButtonText{
+  margin-right: 5px;
 }

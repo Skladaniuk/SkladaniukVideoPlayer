@@ -1,0 +1,28 @@
+.locationList {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.locationItem {
+    font-size: 9px;
+    color: #8D8B91;
+    display: flex;
+    align-items: center;
+    transition: color 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    &:hover {
+        color: #E11D48;
+    }
+
+    &:not(:last-child)::after {
+        content: '/';
+        margin-left: 14px;
+        color: #8D8B91;
+    }
+}
+
+.home {
+    width: 12px;
+    height: 12px;
+}

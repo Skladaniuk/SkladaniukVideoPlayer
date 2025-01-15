@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import videojs from 'video.js';
 import 'video.js/dist/video-js.css';
 import usePlayerStore from '../../store/playerStore';
+import styles from './VideoPlayer.module.scss';
 
 export const VideoJS = () => {
     const videoRef = useRef(null);
@@ -10,6 +11,7 @@ export const VideoJS = () => {
     const webcamStreamRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const recordedChunksRef = useRef([]);
+    const buttonsContainerRef = useRef(null);
 
     useEffect(() => {
         if (!playerRef.current) {
@@ -83,6 +85,7 @@ export const VideoJS = () => {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 webcamStreamRef.current = stream;
+
                 playerStore.setSource(-1); // Перемикаємо на вебкамеру
             } catch (error) {
                 console.error('Не вдалося отримати доступ до вебкамери:', error);
@@ -95,9 +98,7 @@ export const VideoJS = () => {
             mediaRecorderRef.current = new MediaRecorder(webcamStreamRef.current);
             mediaRecorderRef.current.ondataavailable = (event) => {
                 if (event.data.size > 0) {
-                    console.log('AAAAAAAAAAAAAAa', event.data.size)
                     recordedChunksRef.current.push(event.data);
-                    console.log('----------', recordedChunksRef.current.length);
                 }
             };
             mediaRecorderRef.current.start();
@@ -120,9 +121,13 @@ export const VideoJS = () => {
                 recordedChunksRef.current = []; // Очистка записаних даних після запису
 
                 if (blob.size > 0) {
+                    // Очищення лише кнопки Download
+                    buttonsContainerRef.current.innerHTML = '';
+
                     const url = URL.createObjectURL(blob);
                     const downloadButton = document.createElement('button');
-                    downloadButton.innerText = 'Завантажити';
+                    downloadButton.innerText = 'Download video';
+                    downloadButton.className = `${styles.downloadButton}`;
                     downloadButton.onclick = () => {
                         const a = document.createElement('a');
                         a.href = url;
@@ -131,25 +136,26 @@ export const VideoJS = () => {
                         URL.revokeObjectURL(url);
                     };
 
-                    document.body.appendChild(downloadButton);
+                    buttonsContainerRef.current.appendChild(downloadButton);
                 }
             }
         }
     };
 
-
     return (
         <div data-vjs-player>
             <div ref={videoRef}></div>
-            <button onClick={toggleCamera}>
-                {playerStore.currentSource === -1 ? 'Показати відео' : 'Увімкнути камеру'}
-            </button>
-            {playerStore.currentSource === -1 && (
-                <>
-                    <button onClick={startRecording}>Записати відео</button>
-                    <button onClick={stopRecording}>Зупинити запис</button>
-                </>
-            )}
+            <div ref={buttonsContainerRef}>
+                <button className={styles.toggleCameraButton} onClick={toggleCamera}>
+                    {playerStore.currentSource === -1 ? 'Show video list' : 'Turn on Camera'}
+                </button>
+                {playerStore.currentSource === -1 && (
+                    <>
+                        <button className={styles.recordButton} onClick={startRecording}>Start Recording</button>
+                        <button className={styles.stopButton} onClick={stopRecording}>Stop Recording</button>
+                    </>
+                )}
+            </div>
         </div>
     );
 };

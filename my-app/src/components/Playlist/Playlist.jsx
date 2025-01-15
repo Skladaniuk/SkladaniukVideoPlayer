@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import usePlayerStore from '../../store/playerStore';
 import styles from './Playlist.module.scss';
+import { FaPlay } from 'react-icons/fa';
+import { Features } from '../Features/Features';
+
 
 const Playlist = () => {
-    const { videoSources, setSource } = usePlayerStore();
+    const { videoSources, setSource, currentSource } = usePlayerStore();
     const [currentIndex, setCurrentIndex] = useState(0);
 
     // Функція для переходу на наступне відео
@@ -21,27 +24,46 @@ const Playlist = () => {
             videoElement.addEventListener('ended', nextVideo);
         }
 
-        // Очищаємо слухача під час демонтованого компонента
+        // Очищаємо слухача під час демонтажу компонента
         return () => {
             if (videoElement) {
                 videoElement.removeEventListener('ended', nextVideo);
             }
         };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentIndex]);
 
     return (
         <div className={styles.playlist}>
-            {videoSources.map((video, index) => (
-                <div
-                    key={index}
-                    className={styles.playlistItem}
-                    onClick={() => setSource(index)}
-                >
-                    <img src={video.poster || 'https://via.placeholder.com/640x360'} alt={`Video ${index + 1}`} />
-                    <p>{`Video ${index + 1}`}</p>
-                </div>
-            ))}
+            <Features />
+            <ul className={styles.videoList}>
+                {videoSources.map((video, index) => (
+                    <li
+                        key={index}
+                        className={`${styles.playlistItem} ${currentIndex === index ? styles.active : ''
+                            }`}
+                        onClick={() => {
+                            setCurrentIndex(index);
+                            setSource(index);
+                        }}
+                    >
+                        <div className={styles.posterWrapper}>
+                            <img
+                                src={video.poster}
+                                alt={`Poster for ${video.src}`}
+                                className={styles.poster}
+                            />
+                            {currentIndex === index && (
+                                <div className={styles.playIcon}>
+                                    <FaPlay size={16} color="#fff" />
+                                </div>
+                            )}
+                        </div>
+                        <span className={styles.videoName}>
+                            {videoSources[index].title}
+                        </span>
+                    </li>
+                ))}
+            </ul>
         </div>
     );
 };

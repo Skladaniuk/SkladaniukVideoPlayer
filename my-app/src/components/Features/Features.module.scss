@@ -1,0 +1,76 @@
+.utilityContainer {
+    background-color: #202024;
+    padding: 12px 12px;
+}
+
+.validateInput {
+    display: flex;
+    font-size: 8px;
+    align-items: center;
+    background-color: transparent;
+    border-radius: 4px;
+    padding: 6px 12px;
+    color: #fff;
+    border: 0.5px solid #D1D5DB;
+    width: 70%;
+    outline: none;
+    transition: border-color 2s cubic-bezier(0.075, 0.82, 0.165, 1);;
+
+    &:focus {
+        border-color:#F43F5E;  ;
+    }
+   
+}
+
+.validationCointainer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.utilityContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.cameraButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+
+}
+
+
+.inputButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.check {
+    width: 22px;
+    height: 22px;
+}
+
+.camera {
+    width: 28px;
+    height: 28px;
+}
+
+.check, .camera {
+    color: #fff;
+    transition: color 2s cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    &:hover {
+        color: #F43F5E;  
+    }
+}
