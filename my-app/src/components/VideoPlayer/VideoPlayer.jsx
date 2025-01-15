@@ -10,7 +10,7 @@ export const VideoPlayer = () => {
 
     const videoRef = useRef(null);
     const playerRef = useRef(null);
-    const { currentSource, setSource, videoSources, width, height, autoplay, controls } = usePlayerStore();
+    const { currentSource, setSource, videoSources, width, height, autoplay, controls, volume } = usePlayerStore();
     const webcamStreamRef = useRef(null);
     const mediaRecorderRef = useRef(null);
     const recordedChunksRef = useRef([]);
@@ -27,7 +27,11 @@ export const VideoPlayer = () => {
                 height,
                 autoplay,
                 controls,
+                volume,
                 sources: currentSource === -1 ? [] : [videoSources[currentSource]],
+            }, () => {
+                videojs.log('player is ready');
+                player.volume(volume);
             }));
 
             player.on('ended', () => {
@@ -41,6 +45,7 @@ export const VideoPlayer = () => {
             player.controls(controls);
             player.width(width);
             player.height(height);
+            player.volume(volume);
 
             if (currentSource === -1) {
                 if (webcamStreamRef.current) {
