@@ -1,0 +1,74 @@
+
+.button {
+    background-color: #202024;
+    color: #D1D5DB;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+.button:hover {
+    background-color: #F43F5E;
+    color: white;
+    transform: translateY(-2px);
+}
+
+
+.button:active {
+    transform: translateY(0);
+    background-color: #d8344e;
+}
+
+
+.recordButton.recording {
+    background-color: #F43F5E;
+    color: white;
+}
+
+.button.disabled {
+    background-color: #ccc;
+    color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.prevButton{
+    width: 78px;
+    height: 30px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 0px ;
+
+    span{
+        margin-left: 6px;
+    }
+}
+
+.nextButton {
+    width: 78px;
+    height: 30px;
+    border: 1px solid #ffffff;
+    border-radius: 4px;
+    font-size: 12px;
+    padding: 0px;
+
+    span {
+        margin-right: 6px;
+    }
+        svg {
+            transform: rotate(180deg);
+        }
+}
+
+.controlsButtons {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+}

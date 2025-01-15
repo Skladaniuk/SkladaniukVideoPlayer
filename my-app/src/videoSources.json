@@ -1,0 +1,20 @@
+[
+    {
+        "src": "/assets/videos/mov_bbb.mp4",
+        "type": "video/mp4",
+        "poster": "/assets/posters/poster1.png",
+        "title": "video1"
+    },
+    {
+        "src": "/assets/videos/movie.mp4",
+        "type": "video/mp4",
+        "poster": "/assets/posters/poster2.png",
+        "title": "video2"
+    },
+    {
+        "src": "/assets/videos/sample-mp4-file.mp4",
+        "type": "video/mp4",
+        "poster": "/assets/posters/poster3.png",
+        "title": "video3"
+    }
+]
