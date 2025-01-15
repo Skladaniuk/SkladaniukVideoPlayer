@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import { Location } from '../Location/Location';
 import styles from './VideoHeader.module.scss';
 

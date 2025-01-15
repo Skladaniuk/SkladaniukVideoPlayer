@@ -1,10 +1,7 @@
 import React from 'react';
 import './App.css';
-import VideoJS from './components/VideoPlayer/VideoPlayer';
-import videojs from 'video.js';
-import Playlist from './components/Playlist/Playlist';
 import { Header } from './components/Header/Header';
-import { Video } from './components/Video/Video';
+import { VideoContainer } from './components/VideoContainer/VideoContainer';
 import { Container } from './components/Container/Container';
 import { FaSun, FaMoon } from 'react-icons/fa';
 import { useMantineColorScheme, useComputedColorScheme, Button } from '@mantine/core';
@@ -26,8 +23,7 @@ function App() {
           <p className='toggleButtonText'>Change color theme</p>
           {computedColorScheme === "dark" ? <FaSun /> : <FaMoon />}
         </Button>
-
-        <Video />
+        <VideoContainer />
       </Container>
     </>
   );

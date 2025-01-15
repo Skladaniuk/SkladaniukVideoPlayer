@@ -1,46 +1,47 @@
 import { useRef } from 'react';
 import usePlayerStore from '../../store/playerStore';
 import { FaRegCheckCircle } from 'react-icons/fa';
+import { HiOutlineVideoCamera } from "react-icons/hi2";
 import styles from './Features.module.scss';
-import { HiOutlineVideoCamera } from "react-icons/hi2"
 
 export const Features = () => {
     const playerStore = usePlayerStore();
     const inputRef = useRef(null);
-    console.log('123456', playerStore.webcamStream)
-    const addVideoSource = () => {
-        const newSource = inputRef.current.value.trim();
-        const isValid = validateVideoSource(newSource);
 
-        if (isValid) {
-            playerStore.setVideoSources([...playerStore.videoSources, { src: newSource, poster: `${newSource}.jpg` }]);
+    const addVideoSource = () => {
+        const newSource = inputRef.current?.value.trim();
+
+        if (validateVideoSource(newSource)) {
+            playerStore.setVideoSources([
+                ...playerStore.videoSources,
+                { src: newSource, poster: `${newSource}.jpg` }
+            ]);
             inputRef.current.value = '';
         } else {
-            alert('Invalid video source URL');
+            alert('Invalid video source URL. The video must have an extension .mp4 or .webm.');
         }
     };
 
-    const validateVideoSource = (source) => {
-
-        return source && (source.endsWith('.mp4') || source.endsWith('.webm'));
-    };
+    const validateVideoSource = (source) =>
+        source && /\.(mp4|webm)$/i.test(source);
 
     return (
         <div className={styles.utilityContainer}>
             <div className={styles.validationCointainer}>
                 <input
                     ref={inputRef}
-                    placeholder='Enter the source link... '
+                    placeholder="Enter the source link..."
                     className={styles.validateInput}
                     type="text"
                 />
-                <button className={styles.inputButton} type='button' onClick={addVideoSource}>
+                <button
+                    className={styles.inputButton}
+                    type="button"
+                    onClick={addVideoSource}
+                >
                     <FaRegCheckCircle className={styles.check} />
                 </button>
             </div>
-            <button className={styles.cameraButton}>
-                <HiOutlineVideoCamera className={styles.camera} />
-            </button>
         </div>
     );
 };

@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import usePlayerStore from "../../store/playerStore";
 import { Rating, Textarea, Button, Stack, Text, Divider } from "@mantine/core";
 import styles from "./Feedback.module.scss";
 
-const Feedback = () => {
-    const { currentSource, videoSources, addReview, addRating, reviews, ratings } = usePlayerStore();
+
+export const Feedback = () => {
+    const { currentSource, addReview, addRating, reviews } = usePlayerStore();
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
         if (rating > 0 && comment.trim()) {
             addReview(currentSource, { rating, comment });
             addRating(currentSource, rating);
@@ -18,11 +20,9 @@ const Feedback = () => {
         }
     };
 
-
-
     return (
         <div className={styles.feedbackContainer}>
-            <h4 className={styles.title}>Your feedback</h4>
+            <h4 className={styles.title}>Your Feedback</h4>
             <form onSubmit={handleSubmit} className={styles.feedbackForm}>
                 <Stack spacing="md">
                     <div>
@@ -42,7 +42,6 @@ const Feedback = () => {
                             autosize
                             minRows={3}
                             maxRows={6}
-                            className={styles.textareaInput}
                         />
                     </div>
                     <Button type="submit" variant="filled" fullWidth>
@@ -57,11 +56,7 @@ const Feedback = () => {
                     <h5>Previous Feedback:</h5>
                     {reviews[currentSource].map((fb, index) => (
                         <div key={index} className={styles.feedbackItem}>
-                            <div className={styles.rating}>
-                                <strong>
-                                    <Rating value={fb.rating} readOnly size="sm" count={5} />
-                                </strong>
-                            </div>
+                            <Rating value={fb.rating} readOnly size="sm" count={5} />
                             <Text className={styles.comment}>{fb.comment}</Text>
                         </div>
                     ))}
@@ -70,5 +65,3 @@ const Feedback = () => {
         </div>
     );
 };
-
-export default Feedback;

@@ -1,36 +1,44 @@
-import React, { useState, useEffect } from 'react';
-import usePlayerStore from '../../store/playerStore';
-import styles from './Playlist.module.scss';
-import { FaPlay } from 'react-icons/fa';
-import { Features } from '../Features/Features';
+import { useState, useEffect } from "react";
+import usePlayerStore from "../../store/playerStore";
+import { FaPlay } from "react-icons/fa";
+import { Features } from "../Features/Features";
+import styles from "./Playlist.module.scss";
 
+export const Playlist = () => {
 
-const Playlist = () => {
+    
     const { videoSources, setSource, currentSource } = usePlayerStore();
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    // Функція для переходу на наступне відео
     const nextVideo = () => {
         if (currentIndex < videoSources.length - 1) {
-            setCurrentIndex(currentIndex + 1);
-            setSource(currentIndex + 1);
+            const nextIndex = currentIndex + 1;
+            setCurrentIndex(nextIndex);
+            setSource(nextIndex);
         }
     };
 
     useEffect(() => {
-        // Додаємо слухача завершення відео
-        const videoElement = document.querySelector('video');
+        const videoElement = document.querySelector("video");
+
         if (videoElement) {
-            videoElement.addEventListener('ended', nextVideo);
+            videoElement.addEventListener("ended", nextVideo);
         }
 
-        // Очищаємо слухача під час демонтажу компонента
         return () => {
             if (videoElement) {
-                videoElement.removeEventListener('ended', nextVideo);
+                videoElement.removeEventListener("ended", nextVideo);
             }
         };
-    }, [currentIndex]);
+    }, [currentIndex, videoSources.length]);
+
+    useEffect(() => {
+
+        if (currentIndex !== currentSource) {
+            setCurrentIndex(currentSource);
+        }
+    }, [currentSource]);
+
 
     return (
         <div className={styles.playlist}>
@@ -39,8 +47,7 @@ const Playlist = () => {
                 {videoSources.map((video, index) => (
                     <li
                         key={index}
-                        className={`${styles.playlistItem} ${currentIndex === index ? styles.active : ''
-                            }`}
+                        className={`${styles.playlistItem} ${currentIndex === index ? styles.active : ""}`}
                         onClick={() => {
                             setCurrentIndex(index);
                             setSource(index);
@@ -58,14 +65,10 @@ const Playlist = () => {
                                 </div>
                             )}
                         </div>
-                        <span className={styles.videoName}>
-                            {videoSources[index].title}
-                        </span>
+                        <span className={styles.videoName}>{video.title}</span>
                     </li>
                 ))}
             </ul>
         </div>
     );
 };
-
-export default Playlist;

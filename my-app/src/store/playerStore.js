@@ -7,7 +7,7 @@ const usePlayerStore = create((set) => ({
     width: 640,
     height: 360,
     volume: 0.5,
-    currentSource: 0,
+    currentSource: 0, 
     videoSources: videoSources,
     reviews: new Array(videoSources.length).fill([]),
     ratings: new Array(videoSources.length).fill(0),

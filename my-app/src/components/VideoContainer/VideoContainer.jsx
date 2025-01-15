@@ -1,21 +1,20 @@
-import React, { useRef, useEffect } from 'react';
 import { VideoHeader } from '../VideoHeader/VideoHeader';
-import VideoJS from '../VideoPlayer/VideoPlayer';
-import Playlist from '../Playlist/Playlist';
+import { VideoPlayer } from '../VideoPlayer/VideoPlayer';
+import { Playlist } from '../Playlist/Playlist';
 import { VideoDescription } from '../VideoDescription/VideoDescription';
-import styles from './Video.module.scss';
-import Feedback from '../Feedback/Feedback';
+import styles from './VideoContainer.module.scss';
+import { Feedback } from '../Feedback/Feedback';
 
 
 
 
-export const Video = () => {
+export const VideoContainer = () => {
     return (
         <section name="video_section">
             <VideoHeader />
             <div className={styles.videoContainer}>
                 <div className={styles.container}>
-                    <VideoJS/>
+                    <VideoPlayer />
                     <Feedback />
                 </div>
                 <Playlist />
